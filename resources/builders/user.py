@@ -1,8 +1,8 @@
 from helpers.data_generator import generate_credentials
 
 
-def user_create(email=None, password=None, name=None, autofill=True):
-    if autofill:
+def user_create(email=None, password=None, name=None, generate=True):
+    if generate:
         new_email, new_password, new_name = generate_credentials()
 
         if email is None:
@@ -18,8 +18,8 @@ def user_create(email=None, password=None, name=None, autofill=True):
         "name": name
     }
 
-def user_login(email=None, password=None, autofill=True):
-    if autofill:
+def user_login(email=None, password=None, generate=True):
+    if generate:
         new_email, new_password, _ = generate_credentials()
 
         if email is None:
@@ -30,4 +30,12 @@ def user_login(email=None, password=None, autofill=True):
     return {
         "email": email,
         "password": password
+    }
+
+def user_auth(token=None):
+    if token is None:
+        return None
+
+    return {
+        "Authorization": token
     }

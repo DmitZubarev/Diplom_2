@@ -1,0 +1,125 @@
+{
+    "type": "object",
+    "properties": {
+        "success": {
+            "type": "boolean",
+            "const": true
+        },
+        "name": {
+            "type": "string"
+        },
+        "order": {
+            "type": "object",
+            "properties": {
+                "ingredients": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "_id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            },
+                            "proteins": {
+                                "type": "integer"
+                            },
+                            "fat": {
+                                "type": "integer"
+                            },
+                            "carbohydrates": {
+                                "type": "integer"
+                            },
+                            "calories": {
+                                "type": "integer"
+                            },
+                            "price": {
+                                "type": "integer"
+                            },
+                            "image": {
+                                "type": "string"
+                            },
+                            "image_mobile": {
+                                "type": "string"
+                            },
+                            "image_large": {
+                                "type": "string"
+                            },
+                            "__v": {
+                                "type": "integer"
+                            }
+                        },
+                        "required": [
+                            "_id",
+                            "name",
+                            "type",
+                            "price"
+                        ]
+                    }
+                },
+                "_id": {
+                    "type": "string"
+                },
+                "owner": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "createdAt": {
+                            "type": "string"
+                        },
+                        "updatedAt": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "email"
+                    ]
+                },
+                "status": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "number": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "ingredients",
+                "_id",
+                "owner",
+                "status",
+                "name",
+                "createdAt",
+                "updatedAt",
+                "number",
+                "price"
+            ]
+        }
+    },
+    "required": [
+        "success",
+        "name",
+        "order"
+    ]
+}

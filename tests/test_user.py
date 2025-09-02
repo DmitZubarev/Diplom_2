@@ -8,10 +8,10 @@ from helpers.schema_validator import validate_schema
 
 
 @allure.suite("Проверки метода создания пользователя")
-class TestCreateUser:
+class TestUserCreate:
 
     @allure.title("Создание уникального пользователя")
-    def test_create_user_success(self):
+    def test_user_create_success(self):
         user = User()
         resp = user.user_create()
         assert resp.status_code == status_codes.CODE_OK
@@ -20,9 +20,8 @@ class TestCreateUser:
         user.user_delete(resp.json()["accessToken"])
 
     @allure.title("Создание не уникального пользователя")
-    def test_create_user_with_existing_login(self, new_user):
-        user = User(new_user["email"], new_user["password"], new_user["name"])
-        resp = user.user_create()
+    def test_user_create_with_existing_login(self, new_user):
+        resp = User(new_user["email"], new_user["password"], new_user["name"]).user_create()
         assert resp.status_code == status_codes.CODE_FORBIDDEN
         assert resp.json()["message"] == error_messages.USER_EXISTS
         validate_schema(resp.json(), "error_message")
@@ -32,22 +31,21 @@ class TestCreateUser:
                                                        (generate_credentials()[0], None, generate_credentials()[2]),
                                                        (generate_credentials()[0], generate_credentials()[1], None)],
                              ids=["Отсутствует email", "Отсутствует password", "Отсутствует name"])
-    def test_create_user_with_empty_fields(self, email, password, name):
-        user = User(email, password, name, autofill=False)
-        resp = user.user_create()
+    def test_user_create_with_empty_fields(self, email, password, name):
+        resp = User(email, password, name, generate=False).user_create()
         assert resp.status_code == status_codes.CODE_FORBIDDEN
-        assert resp.json()["message"] == error_messages.FIELDS_MISSING
+        assert resp.json()["message"] == error_messages.CREDENTIAL_MISSING
         validate_schema(resp.json(), "error_message")
 
 
 @allure.suite("Проверки метода авторизации пользователя")
-class TestLoginUser:
+class TestUserLogin:
 
     @allure.title("Авторизация существующего пользователя")
-    def test_login_user_success(self, new_user):
-        user = User(new_user["email"], new_user["password"])
-        resp = user.user_login()
+    def test_user_login_success(self, new_user):
+        resp = User(new_user["email"], new_user["password"]).user_login()
         assert resp.status_code == status_codes.CODE_OK
+        assert resp.json()["user"]["email"] == new_user["email"]
         validate_schema(resp.json(), "user_login")
 
     @allure.title("Авторизация пользователя с некорректными данными")
@@ -55,29 +53,27 @@ class TestLoginUser:
                                          ({"password": generate_credentials()[1]}),
                                          ({"email": generate_credentials()[0], "password": generate_credentials()[1]})],
                              ids=["Неверный email", "Неверный password", "Неверные email и password"])
-    def test_login_user_wrong_creds(self, new_user, invalid):
+    def test_user_login_wrong_creds(self, new_user, invalid):
         credentials = {**new_user, **invalid}
-        user = User(credentials["email"], credentials["password"])
-        resp = user.user_login()
+        resp = User(credentials["email"], credentials["password"]).user_login()
         assert resp.status_code == status_codes.CODE_UNAUTHORIZED
-        assert resp.json()["message"] == error_messages.INCORRECT_CREDENTIAL
+        assert resp.json()["message"] == error_messages.CREDENTIAL_INCORRECT
         validate_schema(resp.json(), "error_message")
 
 
 @allure.suite("Проверки метода редактирования пользователя")
-class TestUpdateUser:
+class TestUserUpdate:
 
     @allure.title("Редактирование авторизованного пользователя")
-    def test_update_user_success(self, new_user):
-        user = User()
-        resp = user.user_update(new_user["accessToken"])
+    def test_user_update_success(self, new_user):
+        resp = User().user_update(new_user["accessToken"])
         assert resp.status_code == status_codes.CODE_OK
+        assert resp.json()["user"]["email"] != new_user["email"]
         validate_schema(resp.json(), "user_edit")
 
     @allure.title("Редактирование неавторизованного пользователя")
-    def test_update_user_without_auth(self, new_user):
-        user = User()
-        resp = user.user_update()
+    def test_user_update_without_auth(self, new_user):
+        resp = User().user_update()
         assert resp.status_code == status_codes.CODE_UNAUTHORIZED
         assert resp.json()["message"] == error_messages.UNAUTHORIZED
         validate_schema(resp.json(), "error_message")

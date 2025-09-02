@@ -17,7 +17,7 @@
 
 > `$ pip install -r requirements.txt`
 
-**Запуск автотестов**
+**Запуск всех тестов**
 
 >  `$ pytest -v`
 

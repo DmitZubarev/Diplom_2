@@ -1,0 +1,60 @@
+{
+    "type": "object",
+    "properties": {
+        "success": {
+            "type": "boolean",
+            "const": true
+        },
+        "orders": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "ingredients": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "string"
+                    },
+                    "number": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "_id",
+                    "ingredients",
+                    "status",
+                    "name",
+                    "number"
+                ]
+            }
+        },
+        "total": {
+            "type": "integer"
+        },
+        "totalToday": {
+            "type": "integer"
+        }
+    },
+    "required": [
+        "success",
+        "orders",
+        "total",
+        "totalToday"
+    ]
+}
