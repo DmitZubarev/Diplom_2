@@ -1,6 +1,5 @@
 REGISTER = "/api/auth/register"
 LOGIN = "/api/auth/login"
-LOGOUT = "/api/auth/logout"
 USER = "/api/auth/user"
 ORDERS = "/api/orders"
 INGREDIENTS = "/api/ingredients"
