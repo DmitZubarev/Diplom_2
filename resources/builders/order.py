@@ -1,11 +1,9 @@
-from helpers.data_generator import generate_string
+from resources.steps.ingredients import Ingredients
 
 
-def order_create(ingredients: list[str]=None, amount=3, generate=True):
-    if generate:
-        new_ingredients = []
-        for i in range(amount):
-            new_ingredients.append(generate_string(24))
+def order_create(ingredients: list[str]=None, amount=3, autofill=True):
+    if autofill:
+        new_ingredients = Ingredients().ingredients_get_list(amount)
 
         if ingredients is None or not ingredients:
             ingredients = new_ingredients

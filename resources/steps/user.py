@@ -7,40 +7,36 @@ import resources.constants.endpoints as ep
 
 class User:
 
-    def __init__(self, email=None, password=None, name=None, generate=True):
+    def __init__(self):
         self.client = HttpClient()
-        self.email = email
-        self.password = password
-        self.name = name
-        self.generate = generate
 
     @allure.step("Создать пользователя")
-    def user_create(self):
+    def user_create(self, email=None, password=None, name=None, generate=True):
         payload = u.user_create(
-            self.email,
-            self.password,
-            self.name,
-            self.generate
+            email,
+            password,
+            name,
+            generate
         )
         return self.client.post(endpoint=ep.REGISTER, json=payload)
 
     @allure.step("Авторизоваться пользователем")
-    def user_login(self):
+    def user_login(self, email=None, password=None, generate=True):
         payload = u.user_login(
-            self.email,
-            self.password,
-            self.generate
+            email,
+            password,
+            generate
         )
         return self.client.post(endpoint=ep.LOGIN, json=payload)
 
     @allure.step("Изменить данные пользователя")
-    def user_update(self, token=None):
+    def user_update(self, email=None, password=None, name=None, generate=True, token=None):
         headers = u.user_auth(token)
         payload = u.user_create(
-            self.email,
-            self.password,
-            self.name,
-            self.generate
+            email,
+            password,
+            name,
+            generate
         )
         return self.client.patch(endpoint=ep.USER, json=payload, headers=headers)
 

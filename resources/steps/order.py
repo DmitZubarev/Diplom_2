@@ -12,12 +12,12 @@ class Order:
         self.client = HttpClient()
 
     @allure.step("Создать заказ")
-    def order_create(self, ingredients: list[str]=None, token=None, amount=3, generate=True):
+    def order_create(self, ingredients: list[str]=None, token=None, amount=3, autofill=True):
         headers = u.user_auth(token)
         payload = o.order_create(
             ingredients,
             amount,
-            generate
+            autofill
         )
         return self.client.post(endpoint=ep.ORDERS, json=payload, headers=headers)
 

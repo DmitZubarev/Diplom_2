@@ -9,5 +9,11 @@ def generate_credentials():
     password = "".join(random.choices(string.ascii_letters + string.digits + "!@#$%^&*", k=12))
     return email, password, name
 
+def generate_ingredients(amount=3):
+    ingredients = []
+    for i in range(amount):
+        ingredients.append(generate_string(24))
+    return ingredients
+
 def generate_string(length=12):
     return "".join(random.choices(string.ascii_letters + string.digits, k=length))

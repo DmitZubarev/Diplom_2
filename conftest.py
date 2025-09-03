@@ -12,8 +12,7 @@ from resources.steps.ingredients import Ingredients
 @pytest.fixture(scope="class")
 def new_user():
     payload = u.user_create()
-    user = User(payload["email"], payload["password"], payload["name"])
-    resp = user.user_create().json()
+    resp = User().user_create(payload["email"], payload["password"], payload["name"]).json()
 
     for key in ("accessToken", "refreshToken"):
         payload[key] = resp[key]
@@ -21,14 +20,14 @@ def new_user():
     yield payload
 
     if resp:
-        user.user_delete(payload["accessToken"])
+        User().user_delete(payload["accessToken"])
 
 @allure.title("Создать новый заказ")
 @pytest.fixture(scope="class")
 def new_order(new_user):
     ingredients = Ingredients().ingredients_get_list()
     payload = o.order_create(ingredients)
-    resp = Order().order_create(ingredients, token=new_user["accessToken"]).json()
+    resp = Order().order_create(ingredients, token=new_user["accessToken"], autofill=False).json()
 
     for key in ("_id", "number"):
         payload[key] = resp["order"][key]
