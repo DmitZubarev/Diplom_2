@@ -7,11 +7,10 @@ import resources.constants.endpoints as ep
 
 
 class Order:
-
     def __init__(self):
         self.client = HttpClient()
 
-    @allure.step("Создать заказ")
+    @allure.step("Создаем заказ")
     def order_create(self, ingredients: list[str]=None, token=None, amount=3, autofill=True):
         headers = u.user_auth(token)
         payload = o.order_create(
@@ -21,7 +20,7 @@ class Order:
         )
         return self.client.post(endpoint=ep.ORDERS, json=payload, headers=headers)
 
-    @allure.step("Получить список заказов пользователя")
+    @allure.step("Получаем список заказов пользователя")
     def order_get(self, token=None):
         headers = u.user_auth(token)
         return self.client.get(endpoint=ep.ORDERS, headers=headers)

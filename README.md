@@ -21,7 +21,7 @@
 
 **Установка зависимостей**
 
-> `$ pip install -r requirements.txt`
+>  `$ pip install -r requirements.txt`
 
 **Запуск всех тестов**
 
@@ -29,8 +29,8 @@
 
 **Запуск всех тестов с отчетом**
 
->  `pytest -v --alluredir=allure_results`
+>  `$ pytest -v --alluredir=allure_results`
 
 **Просмотр отчета**
 
->  `allure serve allure_results`
+>  `$ allure serve allure_results`

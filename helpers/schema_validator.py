@@ -1,11 +1,13 @@
 import json
 from jsonschema import validate, ValidationError
-import importlib.resources as pkg_resources
+from importlib.resources import files
+
 from resources import schemas
 
 
 def validate_schema(response: dict, schema_name: str):
-    with pkg_resources.open_text(schemas, f"{schema_name}.json", encoding="utf-8") as f:
+    schema_path = files(schemas).joinpath(f"{schema_name}.json")
+    with schema_path.open("r", encoding="utf-8") as f:
         schema = json.load(f)
 
     try:

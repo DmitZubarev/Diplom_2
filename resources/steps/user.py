@@ -6,11 +6,10 @@ import resources.constants.endpoints as ep
 
 
 class User:
-
     def __init__(self):
         self.client = HttpClient()
 
-    @allure.step("Создать пользователя")
+    @allure.step("Создаем пользователя")
     def user_create(self, email=None, password=None, name=None, generate=True):
         payload = u.user_create(
             email,
@@ -20,7 +19,7 @@ class User:
         )
         return self.client.post(endpoint=ep.REGISTER, json=payload)
 
-    @allure.step("Авторизоваться пользователем")
+    @allure.step("Авторизуемся пользователем")
     def user_login(self, email=None, password=None, generate=True):
         payload = u.user_login(
             email,
@@ -29,7 +28,7 @@ class User:
         )
         return self.client.post(endpoint=ep.LOGIN, json=payload)
 
-    @allure.step("Изменить данные пользователя")
+    @allure.step("Изменяем данные пользователя")
     def user_update(self, email=None, password=None, name=None, generate=True, token=None):
         headers = u.user_auth(token)
         payload = u.user_create(
@@ -40,7 +39,7 @@ class User:
         )
         return self.client.patch(endpoint=ep.USER, json=payload, headers=headers)
 
-    @allure.step("Удалить пользователя")
+    @allure.step("Удаляем пользователя")
     def user_delete(self, token=None):
         headers = u.user_auth(token)
         return self.client.delete(endpoint=ep.USER, headers=headers)
