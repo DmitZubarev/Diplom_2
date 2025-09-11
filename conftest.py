@@ -32,4 +32,4 @@ def new_order(new_user):
     for key in ("_id", "number"):
         payload[key] = resp["order"][key]
 
-    yield payload
+    return payload
