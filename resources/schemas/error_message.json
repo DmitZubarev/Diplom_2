@@ -1,0 +1,16 @@
+{
+    "type": "object",
+    "properties": {
+        "success": {
+            "type": "boolean",
+            "const": false
+        },
+        "message": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "success",
+        "message"
+    ]
+}

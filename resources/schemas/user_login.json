@@ -1,0 +1,36 @@
+{
+    "type": "object",
+    "properties": {
+        "success": {
+            "type": "boolean",
+            "const": true
+        },
+        "user": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "email",
+                "name"
+            ]
+        },
+        "accessToken": {
+            "type": "string"
+        },
+        "refreshToken": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "success",
+        "user",
+        "accessToken",
+        "refreshToken"
+    ]
+}

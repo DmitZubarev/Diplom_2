@@ -1,0 +1,28 @@
+{
+    "type": "object",
+    "properties": {
+        "success": {
+            "type": "boolean",
+            "const": true
+        },
+        "name": {
+            "type": "string"
+        },
+        "order": {
+            "type": "object",
+            "properties": {
+                "number": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "number"
+            ]
+        }
+    },
+    "required": [
+        "success",
+        "name",
+        "order"
+    ]
+}
